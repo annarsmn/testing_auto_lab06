@@ -33,13 +33,12 @@ public class PostRequest extends BaseClass {
     public void createRepoReturns201() throws IOException {
         HttpPost request = new HttpPost("https://api.github.com/user/repos");
 
-        String auth = "annarsmn:token"; // Replace with actual credentials
+        String auth = "annarsmn:{token}";
         byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(Charset.forName("ISO-8859-1")));
         String authHeader = "Basic " + new String(encodedAuth);
-
         request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
 
-        String json = "{\"name\": \"deleteMe\"}";
+        String json = "{\"name\": \"test_rep_to_delete\"}";
         request.setEntity(new StringEntity(json, ContentType.APPLICATION_JSON));
 
         response = client.execute(request);

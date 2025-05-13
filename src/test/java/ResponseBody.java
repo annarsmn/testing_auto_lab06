@@ -100,16 +100,12 @@ public class ResponseBody extends BaseClass {
         assertEquals(user.getMessage(), "Not Found");
     }
 
+    @Test
+    public void nestedJson() throws IOException {
+        HttpGet get = new HttpGet(BASE_ENDPOINT + "/rate_limit");
+        response = client.execute(get);
 
-//    @Test
-//    public void nestedJson() throws IOException {
-//        HttpGet get = new HttpGet(BASE_ENDPOINT + "/nonex");
-//        response = client.execute(get);
-//        System.out.println(EntityUtils.toString(response.getEntity()));
-//        Map<String, Object> responseMap = unmarshallGeneric(response, Map.class);
-//        RateLimit rateLimit = new RateLimit();
-//        rateLimit.unmarshallNested(responseMap);
-//
-//        assertEquals(rateLimit.getCoreLimit(), 60);
-//    }
+        RateLimit rateLimit = unmarshallGeneric(response, RateLimit.class);
+        assertEquals(rateLimit.getCoreLimit(), 60);
+    }
 }
